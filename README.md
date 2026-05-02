@@ -34,7 +34,7 @@ Covers: `__shared__memory`, `__syncthreads()`, tiling, data reuse.
 | Achieved Occupancy | — | 99.90% | 99.90% |
 | Warp Stall Rate | — | 73% | 74.45% |
 
-**Key Insight: ** In the naive matmul operation, hardware was already taking care of caching the necessary duplicate reads from GPU RAM (87% L1 hit rate). Yet, tiled is faster because there was explicit loading of what was required. L1 cache is fast but sometimes it can unexpectedly evict data when another threads needs that cache. Hence we see the 1.3x speed up. On a bigger GPU with larger matrices where L1 can't hold everything, tiling will give you 5-10x improvement. 
+**Key Insight:** In the naive matmul operation, hardware was already taking care of caching the necessary duplicate reads from GPU RAM (87% L1 hit rate). Yet, tiled is faster because there was explicit loading of what was required. L1 cache is fast but sometimes it can unexpectedly evict data when another threads needs that cache. Hence we see the 1.3x speed up. On a bigger GPU with larger matrices where L1 can't hold everything, tiling will give you 5-10x improvement. 
 
 Interesting blog comparing various matmul kernels - https://siboehm.com/articles/22/CUDA-MMM
 
