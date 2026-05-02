@@ -4,14 +4,14 @@
 #define tile_width 16
 
 /*
-  1. Shared memory (__shared__), on-chip memory, ~100x faster than global memory. 
-  2. Cooperative loading — 256 threads in a block work together to load a 16×16 tile of A 
+  1. Shared memory (__shared__), on-chip memory, ~100x faster than global memory.
+  2. Cooperative loading — 256 threads in a block work together to load a 16×16 tile of A
   and a 16×16 tile of B into shared memory. Each thread loads exactly one element from each matrix.
   3. __syncthreads(), barrier synchronization. First sync : ensure all threads finished loading before
   any thread starts computing. Second sync : ensure all threads finished computing before the next tile
-  overwrites shared memory. 
-  4, Tiling over K - Instead of one big dot product over N = 1024 elements from global memory you do 
-  N/16 = 64 partial dot products of 16 elements each from shared memory. 
+  overwrites shared memory.
+  4, Tiling over K - Instead of one big dot product over N = 1024 elements from global memory you do
+  N/16 = 64 partial dot products of 16 elements each from shared memory.
   5. Each element loaded into shared memory is used 16 elements (once per hthread in the perpendicular dimension).
   Global memory reads become (2/tile width)xN^3. Lower memory bandwidth utilization.
  */
@@ -49,7 +49,7 @@ __global__ void matmul_tiled(float * A, float * B, float * C, int N)
 
 int main()
 {
-    int N = 1024;
+    int N = 4096;
     float *A = (float*)malloc(N * N * sizeof(float));
     float *B = (float*)malloc(N * N * sizeof(float));
 

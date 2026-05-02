@@ -3,14 +3,14 @@
 
 /*
  1. 2D Thread indexing - one thread per output element C[row][col]
- 2. 2D grid & block dimensions - maps to matrix structure. 
+ 2. 2D grid & block dimensions - maps to matrix structure.
  3. Row-major indexing, A[row][k] = A[row * N + k]
- 4. Inner loop over k, each thread computes a full dot product independently. 
- 5. Problem : Each thread independently loads its entire row of A & column of B from 
+ 4. Inner loop over k, each thread computes a full dot product independently.
+ 5. Problem : Each thread independently loads its entire row of A & column of B from
     global memory -> massive reduntant reads -> memory bound.
-    
-Every element of A is read N times (once per output column). Every element of B is read N times (once per output row). 
-Total reads = 2 x N^3 from slow global memory. 
+
+Every element of A is read N times (once per output column). Every element of B is read N times (once per output row).
+Total reads = 2 x N^3 from slow global memory.
  */
 
 __global__ void mm_naive (float* A, float* B, float* C, int N)
@@ -34,7 +34,7 @@ __global__ void mm_naive (float* A, float* B, float* C, int N)
 
 int main()
 {
-    int N = 1024;
+    int N = 4096;
     float *A = (float*)malloc(N * N * sizeof(float));
     float *B = (float*)malloc(N * N * sizeof(float));
 
