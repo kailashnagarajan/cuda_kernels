@@ -30,9 +30,7 @@ Covers: `__shared__memory`, `__syncthreads()`, tiling, data reuse.
 
 ## Build
 
-```
-nvcc <kernel>.cu -o <kernel> -arch=sm_86
-```
+`nvcc <kernel>.cu -o <kernel> -arch=sm_86`
 
 ## Stack
 - GPU: NVIDIA RTX 3050 8GB
